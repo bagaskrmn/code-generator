@@ -1,47 +1,52 @@
 /*
 Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
-	"os"
+	"github.com/bagaskrmn/code-generator/internal/generator"
 	"github.com/spf13/cobra"
+	"log"
 )
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
 	Use:   "generate [name]",
-	Short: "Scaffold a complete module",
+	Short: "Generate ur master code",
 	Args:  cobra.ExactArgs(1), // Ensures the user provides exactly one name
 	Run: func(cmd *cobra.Command, args []string) {
-		entity := args[0] // e.g., "User"
+		entity := args[0]
 
-		// Define the suffixes you want
-		suffixes := []string{
-			"Repository.go",
-			"Service.go",
-			"Handler.go",
-			"Routes.go",
-			"Presenter.go",
+		fmt.Printf("🚀 Generating boilerplate for: **%s**...\n\n", entity)
+
+		// 1. Generate Repository
+		if err := generator.GenerateRepository(entity); err != nil {
+			log.Fatalf("❌ Error generating Repository: %v", err)
 		}
 
-		fmt.Printf("Generating boilerplate for: %s...\n", entity)
-
-		for _, suffix := range suffixes {
-			fileName := fmt.Sprintf("%s%s", entity, suffix)
-			content := fmt.Sprintf("package main\n\n// %s logic goes here\ntype %s%s struct {}\n", entity, entity, suffix[:len(suffix)-3])
-
-			err := os.WriteFile(fileName, []byte(content), 0644)
-			if err != nil {
-				fmt.Printf("Failed to create %s: %v\n", fileName, err)
-				continue
-			}
-			fmt.Printf("  - Created %s\n", fileName)
+		// 2. Generate Service
+		if err := generator.GenerateService(entity); err != nil {
+			log.Fatalf("❌ Error generating Service: %v", err)
 		}
-		
-		fmt.Println("Done!")
+
+		// 3. Generate Handler
+		if err := generator.GenerateHandler(entity); err != nil {
+			log.Fatalf("❌ Error generating Handler: %v", err)
+		}
+
+		// 4. Generate Presenter
+		if err := generator.GeneratePresenter(entity); err != nil {
+			log.Fatalf("Error generating Presenter: %v", err)
+		}
+
+		// 5. Generate Routes
+		if err := generator.GenerateRoutes(entity); err != nil {
+			log.Fatalf("❌ Error generating Routes: %v", err)
+		}
+
+		fmt.Printf("\n✨ Successfully generated all modules for %s!\n", entity)
+		fmt.Println("Check your project folders to see the new files.")
 	},
 }
 
