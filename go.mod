@@ -1,4 +1,4 @@
-module my-generator
+module github.com/bagaskrmn/code-generator
 
 go 1.24.3
 
