@@ -47,6 +47,7 @@ var generateCmd = &cobra.Command{
 
 		fmt.Printf("\n Successfully generated all modules for %s!\n", entity)
 		fmt.Println("Check your project folders to see the new files.")
+	
 	},
 }
 
