@@ -5,9 +5,10 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/bagaskrmn/code-generator/internal/generator"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 // generateCmd represents the generate command
@@ -18,7 +19,7 @@ var generateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		entity := args[0]
 
-		fmt.Printf("Generating boilerplate for: **%s**...\n\n", entity)
+		fmt.Printf("Generating code for: *%s*\n", entity)
 
 		// 1. Generate Repository
 		if err := generator.GenerateRepository(entity); err != nil {
@@ -45,9 +46,9 @@ var generateCmd = &cobra.Command{
 			log.Fatalf("Error generating Routes: %v", err)
 		}
 
-		fmt.Printf("\n Successfully generated all modules for %s!\n", entity)
+		fmt.Printf("\nSuccessfully generated all modules for %s!\n", entity)
 		fmt.Println("Check your project folders to see the new files.")
-	
+
 	},
 }
 
