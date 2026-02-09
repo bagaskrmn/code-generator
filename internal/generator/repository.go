@@ -2,38 +2,37 @@ package generator
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 )
 
-// GenerateRepository creates the folder and the file for the Repository layer.
 func GenerateRepository(entity string) error {
-	subFolder := "repository"
-	fileName := fmt.Sprintf("%sRepository.go", entity)
-	// 2. Define the Template
-	// We use a "Raw String Literal" (backticks) to make the Go code readable.
-	content := fmt.Sprintf(`package %s
+	nameLower := strings.ToLower(entity)
 
-import (
-	"context"
-)
+	// 1. Define target directory: root/pkg/<name>/repository/
+	targetDir := filepath.Join("generated-code", "pkg", nameLower, "repository")
 
-type %sRepository interface {
-	GetByID(ctx context.Context, id string) (interface{}, error)
-}
+	// 2. Create the directory tree
+	if err := os.MkdirAll(targetDir, 0755); err != nil {
+		return fmt.Errorf("failed to create repository directory: %w", err)
+	}
 
-type %sRepositoryImpl struct {
-	// Add your DB connection here, e.g., DB *sql.DB
-}
+	// 3. Define the blueprint for the 5 files
+	files := map[string]string{
+		// The main interface and struct definition
+		"repository.go": fmt.Sprintf(`%s repository.go`, entity),
+	}
 
-func New%sRepository() %sRepository {
-	return &%sRepositoryImpl{}
-}
+	// 4. Write each file independently
+	for fileName, content := range files {
+		fullPath := filepath.Join(targetDir, fileName)
+		err := os.WriteFile(fullPath, []byte(content), 0644)
+		if err != nil {
+			return fmt.Errorf("failed to write %s: %w", fileName, err)
+		}
+		fmt.Printf("Created: %s\n", fullPath)
+	}
 
-func (r *%sRepositoryImpl) GetByID(ctx context.Context, id string) (interface{}, error) {
-	return nil, nil
-}
-`, strings.ToLower(subFolder), entity, entity, entity, entity, entity, entity)
-
-	// Call the centralized writer instead of os.MkdirAll and os.WriteFile
-	return SaveGeneratedFile(subFolder, fileName, content)
+	return nil
 }

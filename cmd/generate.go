@@ -18,7 +18,7 @@ var generateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		entity := args[0]
 
-		fmt.Printf("🚀 Generating boilerplate for: **%s**...\n\n", entity)
+		fmt.Printf("Generating boilerplate for: **%s**...\n\n", entity)
 
 		// 1. Generate Repository
 		if err := generator.GenerateRepository(entity); err != nil {
