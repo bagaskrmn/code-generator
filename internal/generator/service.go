@@ -11,7 +11,7 @@ func GenerateService(entity string) error {
 	nameLower := strings.ToLower(entity)
 
 	// 1. Define target directory: root/pkg/<name>/service/
-	targetDir := filepath.Join("generated-code", "pkg", nameLower, "service")
+	targetDir := GetPath("service", entity)
 
 	// 2. Create the directory tree
 	if err := os.MkdirAll(targetDir, 0755); err != nil {

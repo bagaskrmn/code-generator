@@ -10,7 +10,7 @@ import (
 func GeneratePresenter(entity string) error {
 	nameLower := strings.ToLower(entity)
 
-	targetDir := filepath.Join("generated-code", "api", "presenter", nameLower)
+	targetDir := GetPath("presenter", entity)
 
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
 		return fmt.Errorf("failed to create presenter directory: %w", err)

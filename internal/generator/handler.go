@@ -10,7 +10,7 @@ import (
 func GenerateHandler(entity string) error {
 	nameLower := strings.ToLower(entity)
 
-	targetDir := filepath.Join("generated-code", "api", "handlers", nameLower)
+	targetDir := GetPath("handler", entity)
 
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
 		return fmt.Errorf("failed to create handler directory: %w", err)
@@ -18,7 +18,7 @@ func GenerateHandler(entity string) error {
 
 	files := map[string]string{
 		fmt.Sprintf("create_%s_handlers.go", nameLower): fmt.Sprintf(`create_%s_handlers.go`, entity),
-		fmt.Sprintf("read_%s_handlers.go", nameLower): fmt.Sprintf(`read_%s_handlers.go`, entity),
+		fmt.Sprintf("read_%s_handlers.go", nameLower):   fmt.Sprintf(`read_%s_handlers.go`, entity),
 		fmt.Sprintf("update_%s_handlers.go", nameLower): fmt.Sprintf(`update_%s_handlers.go`, entity),
 		fmt.Sprintf("delete_%s_handlers.go", nameLower): fmt.Sprintf(`delete_%s_handlers.go`, entity),
 	}

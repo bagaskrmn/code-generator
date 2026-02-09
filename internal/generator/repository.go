@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 func GenerateRepository(entity string) error {
-	nameLower := strings.ToLower(entity)
+	// nameLower := strings.ToLower(entity)
 
 	// 1. Define target directory: root/pkg/<name>/repository/
-	targetDir := filepath.Join("generated-code", "pkg", nameLower, "repository")
+	targetDir := GetPath("repository", entity)
 
 	// 2. Create the directory tree
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
@@ -21,7 +20,7 @@ func GenerateRepository(entity string) error {
 	// 3. Define the blueprint for the 5 files
 	files := map[string]string{
 		// The main interface and struct definition
-		"repository.go": fmt.Sprintf(`%s repository.go`, entity),
+		"repository.go": fmt.Sprintf(`%s_repository.go`, entity),
 	}
 
 	// 4. Write each file independently
