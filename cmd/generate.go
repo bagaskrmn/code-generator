@@ -21,25 +21,25 @@ var generateCmd = &cobra.Command{
 
 		fmt.Printf("Generating code for: *%s*\n", entity)
 
-		// // 1. Generate Repository
-		// if err := generator.GenerateRepository(entity); err != nil {
-		// 	log.Fatalf("Error generating Repository: %v", err)
-		// }
+		// 1. Generate Repository
+		if err := generator.GenerateRepository(entity); err != nil {
+			log.Fatalf("Error generating Repository: %v", err)
+		}
 
-		// // 2. Generate Service
-		// if err := generator.GenerateService(entity); err != nil {
-		// 	log.Fatalf("Error generating Service: %v", err)
-		// }
+		// 2. Generate Service
+		if err := generator.GenerateService(entity); err != nil {
+			log.Fatalf("Error generating Service: %v", err)
+		}
 
-		// // 3. Generate Handler
-		// if err := generator.GenerateHandler(entity); err != nil {
-		// 	log.Fatalf("Error generating Handler: %v", err)
-		// }
+		// 3. Generate Handler
+		if err := generator.GenerateHandler(entity); err != nil {
+			log.Fatalf("Error generating Handler: %v", err)
+		}
 
-		// // 4. Generate Presenter
-		// if err := generator.GeneratePresenter(entity); err != nil {
-		// 	log.Fatalf("Error generating Presenter: %v", err)
-		// }
+		// 4. Generate Presenter
+		if err := generator.GeneratePresenter(entity); err != nil {
+			log.Fatalf("Error generating Presenter: %v", err)
+		}
 
 		// 5. Generate Routes
 		if err := generator.GenerateRoutes(entity); err != nil {
