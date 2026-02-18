@@ -28,30 +28,35 @@ var generateCmd = &cobra.Command{
 		}
 		fmt.Printf("Generating code for: %s\n", entity)
 
-		// // 1. Generate Repository
+		// Generate Routes
+		// if err := generator.GenerateRoutes(entity, repoName); err != nil {
+		// 	log.Fatalf("Error generating Routes: %v", err)
+		// }
+
+		// Generate Model
+		if err := generator.GenerateModel(entity, repoName); err != nil {
+			log.Fatalf("Error generating Model: %v", err)
+		}
+
+		// //  Generate Repository
 		// if err := generator.GenerateRepository(entity); err != nil {
 		// 	log.Fatalf("Error generating Repository: %v", err)
 		// }
 
-		// // 2. Generate Service
+		// //  Generate Service
 		// if err := generator.GenerateService(entity); err != nil {
 		// 	log.Fatalf("Error generating Service: %v", err)
 		// }
 
-		// // 3. Generate Handler
+		// // Generate Handler
 		// if err := generator.GenerateHandler(entity); err != nil {
 		// 	log.Fatalf("Error generating Handler: %v", err)
 		// }
 
-		// // 4. Generate Presenter
+		// // Generate Presenter
 		// if err := generator.GeneratePresenter(entity); err != nil {
 		// 	log.Fatalf("Error generating Presenter: %v", err)
 		// }
-
-		// 5. Generate Routes
-		if err := generator.GenerateRoutes(entity, repoName); err != nil {
-			log.Fatalf("Error generating Routes: %v", err)
-		}
 
 		fmt.Printf("\nSuccessfully generated all modules for %s!\n", entity)
 		fmt.Println("Check your project folders to see the new files.")

@@ -1,9 +1,9 @@
 package generator
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
-	"os"
 )
 
 // GetPath returns the target directory for a specific module and entity.
@@ -25,6 +25,8 @@ func GetPath(module, entity string) string {
 		return filepath.Join(base, "api", "handlers", nameLower)
 	case "presenter":
 		return filepath.Join(base, "api", "presenter", nameLower)
+	case "model":
+		return filepath.Join(base, "pkg", "entities")
 	case "routes":
 		// Routes are grouped together in one folder usually
 		return filepath.Join(base, "api", "routes")
