@@ -19,7 +19,14 @@ var generateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		entity := args[0]
 
-		fmt.Printf("Generating code for: *%s*\n", entity)
+		var repoName string
+		fmt.Print("Enter ABA-Developer Repository Name (e.g., my-project-api): ")
+		fmt.Scanln(&repoName)
+
+		if repoName == "" {
+			log.Fatal("Repository name cannot be empty")
+		}
+		fmt.Printf("Generating code for: %s\n", entity)
 
 		// 1. Generate Repository
 		if err := generator.GenerateRepository(entity); err != nil {
@@ -42,7 +49,7 @@ var generateCmd = &cobra.Command{
 		}
 
 		// 5. Generate Routes
-		if err := generator.GenerateRoutes(entity); err != nil {
+		if err := generator.GenerateRoutes(entity, repoName); err != nil {
 			log.Fatalf("Error generating Routes: %v", err)
 		}
 
