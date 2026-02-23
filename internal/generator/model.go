@@ -9,7 +9,7 @@ import (
 	"github.com/bagaskrmn/code-generator/internal/template/model"
 )
 
-func GenerateModel(entity string, repoName string) error {
+func GenerateModel(entity string) error {
 	nameLower := strings.ToLower(entity)
 	targetDir := GetPath("model", entity)
 
@@ -20,7 +20,7 @@ func GenerateModel(entity string, repoName string) error {
 	fullPath := filepath.Join(targetDir, fileName)
 
 	// content
-	content := model.GetModelContent(entity, nameLower, repoName)
+	content := model.GetModelContent(entity, nameLower)
 
 	// write file
 	if err := os.WriteFile(fullPath, []byte(content), 0644); err != nil {

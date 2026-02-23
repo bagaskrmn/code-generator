@@ -34,7 +34,7 @@ var generateCmd = &cobra.Command{
 		// }
 
 		// Generate Model
-		if err := generator.GenerateModel(entity, repoName); err != nil {
+		if err := generator.GenerateModel(entity); err != nil {
 			log.Fatalf("Error generating Model: %v", err)
 		}
 
