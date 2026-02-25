@@ -34,9 +34,9 @@ var generateCmd = &cobra.Command{
 		// }
 
 		// Generate Model
-		if err := generator.GenerateModel(entity); err != nil {
-			log.Fatalf("Error generating Model: %v", err)
-		}
+		// if err := generator.GenerateModel(entity); err != nil {
+		// 	log.Fatalf("Error generating Model: %v", err)
+		// }
 
 		// //  Generate Repository
 		// if err := generator.GenerateRepository(entity); err != nil {
@@ -48,10 +48,10 @@ var generateCmd = &cobra.Command{
 		// 	log.Fatalf("Error generating Service: %v", err)
 		// }
 
-		// // Generate Handler
-		// if err := generator.GenerateHandler(entity); err != nil {
-		// 	log.Fatalf("Error generating Handler: %v", err)
-		// }
+		// Generate Handler
+		if err := generator.GenerateHandler(entity); err != nil {
+			log.Fatalf("Error generating Handler: %v", err)
+		}
 
 		// // Generate Presenter
 		// if err := generator.GeneratePresenter(entity); err != nil {
